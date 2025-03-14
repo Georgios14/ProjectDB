@@ -7,7 +7,7 @@ public class SqlCommands {
 
     public static void getRecord(int id) throws SQLException {
 
-        String sql = "SELECT name FROM names WHERE id=" + id + ";";
+        String sql = "SELECT name FROM people WHERE id=" + id + ";";
 
         Connection connection = new Connection();
         java.sql.Connection con = connection.connect();
@@ -16,7 +16,8 @@ public class SqlCommands {
         ResultSet rs = st.executeQuery(sql);
         rs.next();
         String name = rs.getString(1);
-        System.out.println(name);
+        String age = rs.getString(2);
+        System.out.println(name+" "+age);
 
         con.close();
 
@@ -47,7 +48,7 @@ public class SqlCommands {
 
     public static int insertRecord(String data) throws SQLException {
 
-        String sql = "INSERT INTO names (name) VALUES ('" + data + "');";
+        String sql = "INSERT INTO people VALUES ( " + data + ");";
 
         Connection connection = new Connection();
         java.sql.Connection con = connection.connect();

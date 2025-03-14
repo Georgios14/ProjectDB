@@ -11,8 +11,7 @@ public class Connection {
         String password = ReadFile.readPasswordFile();
 
         try {
-            java.sql.Connection connection = DriverManager.getConnection(url, username, password);
-            return connection;
+            return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
