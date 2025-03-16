@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface CrudRepository {
     Human getHumanById(Integer id) throws SQLException;
-    List<Human> getAllHumans();
+    List<Human> getAllHumans() throws SQLException;
     Human createHuman(Human human) throws SQLException;
     Human updateHuman(Human human) throws SQLException;
     void deleteHuman(Integer id) throws SQLException;

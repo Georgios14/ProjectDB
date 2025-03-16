@@ -3,6 +3,7 @@ package org.example;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HumanCrud implements CrudRepository{
@@ -27,8 +28,31 @@ public class HumanCrud implements CrudRepository{
     }
 
     @Override
-    public List<Human> getAllHumans() {
-        return List.of();
+    public List<Human> getAllHumans() throws SQLException {
+
+        String sql = "SELECT * FROM people;";
+
+        Connection connection = new Connection();
+        java.sql.Connection con = connection.connect();
+
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        List<Human> Humans = new ArrayList<>();
+
+        while (rs.next()) {
+
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            int age = rs.getInt("age");
+            String comment = rs.getString("comment");
+
+            Human human = new Human(id,name,age,comment);
+            Humans.add(human);
+
+        }
+
+        return Humans;
     }
 
     @Override
@@ -41,7 +65,6 @@ public class HumanCrud implements CrudRepository{
 
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
-        rs.next();
 
         human.setId(rs.getInt(1));
 
@@ -60,7 +83,6 @@ public class HumanCrud implements CrudRepository{
 
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
-        rs.next();
 
         con.close();
         return human;
